@@ -5,14 +5,14 @@ pipeline {
   }
     stages {
         
-        stage('build && SonarQube analysis') {
+        stage('SonarQube analysis') {
             steps {
                  withSonarQubeEnv('sq1') {
       sh "${scannerHome}/bin/sonar-scanner"
     }
             }
         }
-                stage("Quality gate") {
+                stage("Abort in case of failure") {
             steps {
                 timeout(time:1,unit:'MINUTES')
                 {
